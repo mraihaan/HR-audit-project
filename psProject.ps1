@@ -11,6 +11,7 @@ $list = Import-Csv -Path filePath123.csv
 Foreach($user in $list){
     #variable to store name of user {'name' is header name of the users column in the CSV file}
     $dn = $user.name
+    
     #Try the following code block
     try{
         #If user doesn't exist in AD
@@ -18,12 +19,14 @@ Foreach($user in $list){
             #Print out name with nothing next to it
             Write-Host $user.name
         }
+        
         #If user does exist in AD
         else{
             #Print out name and enabled status (true or false)
             Get-ADUser -Filter {displayName -like $dn} | select Name, Enabled
         }
     }
+    
     #If there is an error
     catch{
         Write-Host ""
